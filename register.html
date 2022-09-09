@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+    <ul>
+        <li>
+            <label>Name</label>
+            <input type="text" id="name">
+        </li>
+        <li>
+            <label>Username</label>
+            <input type="text" id="username">
+        </li>
+        <li>
+            <label>Password</label>
+            <input type="password" id="password">
+        </li>
+        <li>
+            <label>Ulangi Password</label>
+            <input type="password" id="password_confirm">
+        </li>
+        <li>
+            <button type="submit" onclick="registerNow()">Register</button>
+        </li>
+    </ul>
+ 
+    <section class="vh-100" style="background-color: #eee;">
+        <div class="container h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+              <div class="card text-black" style="border-radius: 25px;">
+                <div class="card-body p-md-5">
+                  <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+      
+                      <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <div class="form-outline flex-fill mb-0">
+                            <input type="text" id="name" class="form-control" />
+                            <label class="form-label">Name</label>
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <div class="form-outline flex-fill mb-0">
+                            <input type="text" id="username" class="form-control" />
+                            <label class="form-label">Username</label>
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <div class="form-outline flex-fill mb-0">
+                            <input type="password" id="password" class="form-control" />
+                            <label class="form-label">Password</label>
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <div class="form-outline flex-fill mb-0">
+                            <input type="password" id="password_confirm" class="form-control" />
+                            <label class="form-label">Ulangi password</label>
+                          </div>
+                        </div>
+      
+                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                          <button type="submit" onclick="registerNow()" class="btn btn-primary btn-lg" >Register</button>
+                        </div>
+      
+      
+                    </div>
+                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+      
+                      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                        class="img-fluid" alt="Sample image">
+      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    <script>
+        function registerNow(){
+            let name = document.getElementById("name").value;
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let password_confirm = document.getElementById("password_confirm").value;
+ 
+            if(password_confirm === password){
+                //console.log(JSON.stringify{{name, username, password}});
+                fetch("http://127.0.0.1:8000/api/users/store.php", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({name, username, password})
+                })
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch(error =>  console.log(error));
+            }
+        }
+ 
+    </script>
+</body>
+</html>
